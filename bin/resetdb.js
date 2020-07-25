@@ -8,7 +8,7 @@ const Client = require('pg-native');
 
 // PG connection setup
 const connectionString = process.env.DATABASE_URL ||
-  `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+  `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=disable`;
 const client = new Client();
 
 // Loads the schema files from db/schema
@@ -36,6 +36,7 @@ const runSeedFiles = function() {
 
 try {
   console.log(`-> Connecting to PG using ${connectionString} ...`);
+  console.log('hello');
   client.connectSync(connectionString);
   runSchemaFiles();
   runSeedFiles();
