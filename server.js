@@ -46,8 +46,22 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+/******* Main Page *******/
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+
+/******* Check Out Page *******/
+app.get("/checkout", (req,res) => {
+  res.render("checkout");
+});
+
+
+/******* Place Order Page *******/
+app.get("/order", (req,res) => {
+  res.render("place-order");
 });
 
 app.listen(PORT, () => {
