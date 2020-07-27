@@ -36,7 +36,7 @@ app.use(express.static("public"));
 
 // const usersRoutes = require("./routes/users");
 // const widgetsRoutes = require("./routes/widgets");
-const checkoutRoutes = require("./routes/checkout");    // <---------------- Felipe/July25
+const confirmationRoutes = require("./routes/confirmation");    // <---------------- Felipe/July25
 const orderRoutes = require("./routes/order");          // <---------------- Felipe/July25
 
 // Mount all resource routes
@@ -44,7 +44,7 @@ const orderRoutes = require("./routes/order");          // <---------------- Fel
 
 // app.use("/api/users", usersRoutes(db));
 // app.use("/api/widgets", widgetsRoutes(db));
-app.use("/checkout", checkoutRoutes(db));    // <---------------- Felipe/July25
+app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
 app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
 
 
