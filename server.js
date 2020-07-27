@@ -44,8 +44,8 @@ const orderRoutes = require("./routes/order");          // <---------------- Fel
 
 // app.use("/api/users", usersRoutes(db));
 // app.use("/api/widgets", widgetsRoutes(db));
-app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
-app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
+///app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
+///app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
 
 
 // Note: mount other resources here, using the same pattern above
@@ -60,6 +60,7 @@ app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
 /******* Main Page *******/
 
 app.get("/", (req, res) => {
+  console.log("hello");
   res.render("index");
 });
 
@@ -68,8 +69,23 @@ app.post("/", (req, res) => {        // <---------------- Felipe/July25
 });
 
 
+//<--- William / July 27
+app.get("/menu", (req, res) => {
+  res.render("menu");
+});
+
+app.get("/order", (req, res) => {
+  res.render("order");
+});
+
+app.post("/order", (req, res) => {
+  console.log(req.body);
+  res.render('confirmation', {orderdata: req.body});
+  //save req.body object to database for twilio so we have the phone number
+});
 
 /******* Listens for Port *******/
 app.listen(PORT, () => {
+  console.log("hello2")
   console.log(`Example app listening on port ${PORT}`);
 });
