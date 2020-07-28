@@ -74,14 +74,40 @@ app.get("/menu", (req, res) => {
   res.render("menu");
 });
 
+app.post("/menu", (req, res) => {
+  console.log(req.body);
+  // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
+});
+
+app.get("/proceedtocheckout", (req, res) => {
+  res.redirect('order');
+});
+
 app.get("/order", (req, res) => {
+  // you enter the order form information before you click submit order to confirm your order
   res.render("order");
 });
 
 app.post("/order", (req, res) => {
   console.log(req.body);
-  res.render('confirmation', {orderdata: req.body});
-  //save req.body object to database for twilio so we have the phone number
+  // insert individual object keys into database
+  res.redirect('confirmation', {orderdata: req.body});
+  // this should store the req.body in a local object that can be referenced by get(confirmation)
+
+  //res.redirect('confirmation', {orderdata: req.body});
+  //save req.body object to database for twilio so we have the phone number (orderdata.inputPhone)
+});
+
+app.get("/placeyourorder", (req, res) => {
+  res.redirect('confirmation');
+});
+
+app.get("/confirmation", (req, res) => {
+  res.render("confirmation", {orderdata: req.body});
+});
+
+app.post("/confirmation", (req, res) => {
+  res.render("confirmation");
 });
 
 /******* Listens for Port *******/
@@ -89,3 +115,4 @@ app.listen(PORT, () => {
   console.log("hello2")
   console.log(`Example app listening on port ${PORT}`);
 });
+

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Menu Page</title>
+  <title>Menu</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -157,7 +157,9 @@
   <footer>
     <nav class="navbar fixed-bottom navbar-light bg-light">
       <a class="navbar-brand" href="#">Order Total</a>
-      <a href="#" class="btn btn-primary">Proceed to Checkout</a>
+      <form id="order-form" method="GET" action="/proceedtocheckout">
+      <input type='submit' value="Proceed to Checkout" class="btn btn-primary"></input>
+      </form>
     </nav>
   </footer>
   <!-- Bootstrap JS -->

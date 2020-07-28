@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Menu Page</title>
+  <title>Order Confirmation</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -115,7 +115,31 @@
   <footer>
     <nav class="navbar fixed-bottom navbar-light bg-light">
       <a class="navbar-brand" href="#">Estimated Time for Pick Up</a>
-      <a href="#" class="btn btn-primary">Contact Us</a>
+      <!-- <input value = "Contact Us at 604-310-1010" class="btn btn-primary"></input> -->
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Contact Us
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Contact Us</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <p>For questions about your order, please call 604-310-1010 for assistance. Thank you!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
   </footer>
   <!-- Bootstrap JS -->
