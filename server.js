@@ -79,6 +79,7 @@ app.get("/menu", (req, res) => {
 app.post("/menu", (req, res) => {
   console.log(req.body);
   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
+  res.render("menu");
 });
 
 app.get("/proceedtocheckout", (req, res) => {
@@ -105,7 +106,7 @@ app.get("/placeyourorder", (req, res) => {
 });
 
 app.get("/confirmation", (req, res) => {
-  res.render("confirmation");
+  res.render("confirmation", {orderdata: req.body});
 });
 
 app.post("/confirmation", (req, res) => {
