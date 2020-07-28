@@ -6,3 +6,15 @@ footer {
   padding-left: 0px;
   padding-right: 0px;
 }
+
+.leftfooterbutton {
+  display:flex;
+}
+
+
+.leftfootercounter{
+  text-align:center;
+  line-height:40px;
+  height:40px;
+  vertical-align: middle;
+}

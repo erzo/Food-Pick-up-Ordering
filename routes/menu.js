@@ -48,11 +48,13 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
+    console.log("fetching menu")
     db.query(`SELECT * FROM menu_items;`)
       .then(data => {
         console.log("data", data);
-        const users = data.rows;
-        res.json({ users });
+        const menu = data.rows;
+        res.json({ menu });
+        //res.render("menu", menu);
       })
       .catch(err => {
         res
@@ -61,7 +63,7 @@ module.exports = (db) => {
 
 
       });
-    res.render('menu');
+    // res.render('menu');
   });
 
   return router;

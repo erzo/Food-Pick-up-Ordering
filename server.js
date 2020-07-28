@@ -43,8 +43,8 @@ const orderRoutes = require("./routes/order");          // <---------------- Fel
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 
-// app.use("/api/users", usersRoutes(db));
-// app.use("/menu", menuRoutes(db));
+app.use("/api/users", usersRoutes(db));
+app.use("/api/menu", menuRoutes(db));
 // app.use("/api/widgets", widgetsRoutes(db));
 ///app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
 ///app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
@@ -71,7 +71,9 @@ app.post("/", (req, res) => {        // <---------------- Felipe/July25
 });
 
 
-//<--- William / July 27
+
+
+// //<--- William / July 27
 app.get("/menu", (req, res) => {
   res.render("menu");
 });
@@ -81,6 +83,7 @@ app.post("/menu", (req, res) => {
   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
   res.render("menu");
 });
+
 
 app.get("/proceedtocheckout", (req, res) => {
   res.redirect('order');
@@ -112,6 +115,8 @@ app.get("/confirmation", (req, res) => {
 app.post("/confirmation", (req, res) => {
   res.render("confirmation");
 });
+
+
 
 /******* Listens for Port *******/
 app.listen(PORT, () => {
