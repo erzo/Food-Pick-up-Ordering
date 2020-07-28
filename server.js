@@ -97,7 +97,7 @@ app.post("/order", (req, res) => {
   //res.render('confirmation', {orderdata: req.body});
   // this should store the req.body in a local object that can be referenced by get(confirmation)
 
-  res.render('confirmation', {orderdata: req.body});
+  res.redirect('confirmation');
   //save req.body object to database for twilio so we have the phone number (orderdata.inputPhone)
 });
 
