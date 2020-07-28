@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   customer_notes text,
   initial_order_time TIME,
   estimated_wait_time TIME,

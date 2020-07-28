@@ -1,5 +1,5 @@
 const express = require('express'); //imports express module
-const router  = express.Router();
+const router = express.Router();
 
 
 
@@ -46,8 +46,23 @@ const router  = express.Router();
 // };
 
 
-module.exports = { router };   // <------- Felipe/July27
-// module.exports = {
-//   menuGet,
-//   menuPost
-// }
+module.exports = (db) => {
+  router.get("/", (req, res) => {
+    db.query(`SELECT * FROM menu_items;`)
+      .then(data => {
+        console.log("data", data);
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+
+
+      });
+    res.render('menu');
+  });
+
+  return router;
+};

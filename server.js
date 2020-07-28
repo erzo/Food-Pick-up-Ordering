@@ -34,7 +34,8 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 
-// const usersRoutes = require("./routes/users");
+const usersRoutes = require("./routes/users");
+const menuRoutes = require("./routes/menu");
 // const widgetsRoutes = require("./routes/widgets");
 const confirmationRoutes = require("./routes/confirmation");    // <---------------- Felipe/July25
 const orderRoutes = require("./routes/order");          // <---------------- Felipe/July25
@@ -42,7 +43,8 @@ const orderRoutes = require("./routes/order");          // <---------------- Fel
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 
-// app.use("/api/users", usersRoutes(db));
+app.use("/api/users", usersRoutes(db));
+app.use("/menu", menuRoutes(db));
 // app.use("/api/widgets", widgetsRoutes(db));
 ///app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
 ///app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
