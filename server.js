@@ -43,8 +43,8 @@ const orderRoutes = require("./routes/order");          // <---------------- Fel
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 
-app.use("/api/users", usersRoutes(db));
-app.use("/menu", menuRoutes(db));
+// app.use("/api/users", usersRoutes(db));
+// app.use("/menu", menuRoutes(db));
 // app.use("/api/widgets", widgetsRoutes(db));
 ///app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
 ///app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
@@ -93,10 +93,10 @@ app.get("/order", (req, res) => {
 app.post("/order", (req, res) => {
   console.log(req.body);
   // insert individual object keys into database
-  res.redirect('confirmation', {orderdata: req.body});
+  //res.render('confirmation', {orderdata: req.body});
   // this should store the req.body in a local object that can be referenced by get(confirmation)
 
-  //res.redirect('confirmation', {orderdata: req.body});
+  res.render('confirmation', {orderdata: req.body});
   //save req.body object to database for twilio so we have the phone number (orderdata.inputPhone)
 });
 
@@ -105,7 +105,7 @@ app.get("/placeyourorder", (req, res) => {
 });
 
 app.get("/confirmation", (req, res) => {
-  res.render("confirmation", {orderdata: req.body});
+  res.render("confirmation");
 });
 
 app.post("/confirmation", (req, res) => {
