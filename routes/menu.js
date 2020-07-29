@@ -49,6 +49,7 @@ const router = express.Router();
 module.exports = (db) => {
   router.get("/", (req, res) => {
     console.log("fetching menu")
+    console.log("db: ", db);
     db.query(`SELECT * FROM menu_items;`)
       .then(data => {
         console.log("data", data);
