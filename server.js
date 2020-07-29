@@ -14,8 +14,8 @@ const morgan = require('morgan');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 //twilio set up - jul 28 william outbound sms
-const accountSid = 'AC8c0648d4a54322a372f5d272b3f67067';
-const authToken = 'f36678d63908876bad9e73cb61bfe303';
+const accountSid = 
+const authToken =
 const client = require('twilio')(accountSid, authToken);
 
 
@@ -109,8 +109,8 @@ app.post("/order", (req, res) => {
   client.messages
   .create({
      body: 'A restaurant order has come in',
-     from: '+16042601034',
-     to: '+16043563256'
+     from: '',
+     to: ''
    })
   .then(message => console.log(message.sid))
   .then(() => res.redirect('confirmation'));
