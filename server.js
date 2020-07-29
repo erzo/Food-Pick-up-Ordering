@@ -2,13 +2,23 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
-const express    = require("express");
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.ENV || "development";
+const express = require("express");
 const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const sass = require("node-sass-middleware");
+const app = express();
+const morgan = require('morgan');
+
+//twilio set up - jul 28 william inbound sms
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
+//twilio set up - jul 28 william outbound sms
+const accountSid = 'AC8c0648d4a54322a372f5d272b3f67067';
+const authToken = 'f36678d63908876bad9e73cb61bfe303';
+const client = require('twilio')(accountSid, authToken);
+
+
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -96,12 +106,27 @@ app.get("/order", (req, res) => {
 
 app.post("/order", (req, res) => {
   console.log(req.body);
+  client.messages
+  .create({
+     body: 'A restaurant order has come in',
+     from: '+16042601034',
+     to: '+16043563256'
+   })
+  .then(message => console.log(message.sid))
+  .then(() => res.redirect('confirmation'));
+  //.then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
-  res.render('confirmation', {orderdata: req.body});
+  // res.render('confirmation', { orderdata: req.body });
   // this should store the req.body in a local object that can be referenced by get(confirmation)
 
   // res.redirect('confirmation');
   //save req.body object to database for twilio so we have the phone number (orderdata.inputPhone)
+});
+
+
+
+app.post("/placeyourorder", (req, res) => {
+  res.redirect('confirmation');
 });
 
 app.get("/placeyourorder", (req, res) => {
@@ -109,11 +134,40 @@ app.get("/placeyourorder", (req, res) => {
 });
 
 app.get("/confirmation", (req, res) => {
-  res.render("confirmation", {orderdata: req.body});
+  res.render("confirmation", { orderdata: req.body });
 });
 
 app.post("/confirmation", (req, res) => {
   res.render("confirmation");
+});
+
+// //twilio set up - jul 28 william estimateTime formula maker
+const estimatedTime = function(number) {
+  let orderTime = 0;
+  if (number.length > 0 && number.length < 2) {
+    orderTime = 15;
+  } else if (number.length >= 2 && number.length < 4) {
+    orderTime = 20;
+  } else if (number.length >= 4 && number.length < 6) {
+    orderTime = 25;
+  } else {
+    orderTime = "over thirty";
+  }
+
+  return orderTime + "minutes";
+}
+
+
+// //twilio set up - jul 28 william inbound sms
+app.post('/sms', (req, res) => {
+  const twiml = new MessagingResponse();
+
+  twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be shortly`)
+
+  // twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be ${estimatedTime}`)
+
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
 });
 
 
