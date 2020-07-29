@@ -108,7 +108,7 @@ app.post("/order", (req, res) => {
   console.log(req.body);
   client.messages
     .create({
-      body: 'Thank you for ordering from Sushi Restuarant. Your order have been received by our ordering system. Please reply with "YES" to get your estimated pick up time',
+      body: 'Your sushi order have been received by Sushi Restaurant. Please reply "YES" to this number to get your estimated pick up time.',
       from: '16042601034',
       to: process.env.WILLIAM_PHONE_NUMBER
       //to: process.env.FELIPE_PHONE_NUMBER
@@ -166,7 +166,7 @@ app.post('/sms', (req, res) => {
   // const util = require('util');
   // const setTimeoutPromise = util.promisify(setTimeout);
 
-  twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be given shortly`)
+  twiml.message(`The estimated pick up time for your order is (MINUTES). We will message you again once your order is ready for pick up.`)
 
   // twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be ${estimatedTime}`)
 
@@ -176,7 +176,7 @@ app.post('/sms', (req, res) => {
     // console.log("test text")
     client.messages
       .create({
-        body: 'Your order has been completed. Please come to the sushi restaurant for pick up',
+        body: 'Your order has been completed. Please come to Sushi Restaurant for pick up!',
         from: '16042601034',
         to: process.env.WILLIAM_PHONE_NUMBER
         //to: process.env.FELIPE_PHONE_NUMBER
