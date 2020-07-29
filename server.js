@@ -12,10 +12,9 @@ const morgan = require('morgan');
 
 //twilio set up - jul 28 william inbound sms
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
-
 //twilio set up - jul 28 william outbound sms
-const accountSid = 
-const authToken =
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 
@@ -49,6 +48,7 @@ const menuRoutes = require("./routes/menu");
 // const widgetsRoutes = require("./routes/widgets");
 const confirmationRoutes = require("./routes/confirmation");    // <---------------- Felipe/July25
 const orderRoutes = require("./routes/order");          // <---------------- Felipe/July25
+// const { connectionString } = require('./lib/db.js');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -88,11 +88,11 @@ app.get("/menu", (req, res) => {
   res.render("menu");
 });
 
-app.post("/menu", (req, res) => {
-  console.log(req.body);
-  // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
-  res.render("menu");
-});
+// app.post("/menu", (req, res) => {
+//   console.log(req.body);
+//   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
+//   res.render("menu");
+// });
 
 
 app.get("/proceedtocheckout", (req, res) => {
@@ -108,10 +108,11 @@ app.post("/order", (req, res) => {
   console.log(req.body);
   client.messages
   .create({
-     body: 'A restaurant order has come in',
-     from: '',
-     to: ''
-   })
+    body: 'A restaurant order has come in',
+    from: '16042601034',
+    //to: process.env.WILLIAM_PHONE_NUMBER;
+    to: process.env.FELIPE_PHONE_NUMBER
+  })
   .then(message => console.log(message.sid))
   .then(() => res.redirect('confirmation'));
   //.then(() => res.render('confirmation', { orderdata: req.body }));
@@ -174,7 +175,7 @@ app.post('/sms', (req, res) => {
 
 /******* Listens for Port *******/
 app.listen(PORT, () => {
-  console.log("hello2")
+  // console.log("hello2")
   console.log(`Example app listening on port ${PORT}`);
 });
 
