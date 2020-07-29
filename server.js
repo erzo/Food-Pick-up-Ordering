@@ -11,12 +11,11 @@ const app = express();
 const morgan = require('morgan');
 
 //twilio set up - jul 28 william inbound sms
-// const MessagingResponse = require('twilio').twiml.MessagingResponse;
-
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 //twilio set up - jul 28 william outbound sms
-// const accountSid =
-// const authToken =
-// const client = require('twilio')(accountSid, authToken);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 
 
@@ -109,10 +108,11 @@ app.post("/order", (req, res) => {
   console.log(req.body);
   client.messages
   .create({
-     body: 'A restaurant order has come in',
-     from: '',
-     to: ''
-   })
+    body: 'A restaurant order has come in',
+    from: '16042601034',
+    //to: process.env.WILLIAM_PHONE_NUMBER;
+    to: process.env.FELIPE_PHONE_NUMBER
+  })
   .then(message => console.log(message.sid))
   .then(() => res.redirect('confirmation'));
   //.then(() => res.render('confirmation', { orderdata: req.body }));
