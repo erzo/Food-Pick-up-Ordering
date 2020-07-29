@@ -110,8 +110,8 @@ app.post("/order", (req, res) => {
   .create({
     body: 'A restaurant order has come in',
     from: '16042601034',
-    //to: process.env.WILLIAM_PHONE_NUMBER;
-    to: process.env.FELIPE_PHONE_NUMBER
+    to: process.env.WILLIAM_PHONE_NUMBER;
+    //to: process.env.FELIPE_PHONE_NUMBER
   })
   .then(message => console.log(message.sid))
   .then(() => res.redirect('confirmation'));
