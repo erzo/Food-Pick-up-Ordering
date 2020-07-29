@@ -107,14 +107,14 @@ app.get("/order", (req, res) => {
 app.post("/order", (req, res) => {
   console.log(req.body);
   client.messages
-  .create({
-    body: 'A restaurant order has come in',
-    from: '16042601034',
-    to: process.env.WILLIAM_PHONE_NUMBER;
-    //to: process.env.FELIPE_PHONE_NUMBER
-  })
-  .then(message => console.log(message.sid))
-  .then(() => res.redirect('confirmation'));
+    .create({
+      body: 'Thank you for ordering from Sushi Restuarant. Your order have been received by our ordering system. Please reply with "YES" to get your estimated pick up time',
+      from: '16042601034',
+      to: process.env.WILLIAM_PHONE_NUMBER
+      //to: process.env.FELIPE_PHONE_NUMBER
+    })
+    .then(message => console.log(message.sid))
+    .then(() => res.redirect('confirmation'));
   //.then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
   // res.render('confirmation', { orderdata: req.body });
@@ -143,7 +143,7 @@ app.post("/confirmation", (req, res) => {
 });
 
 // //twilio set up - jul 28 william estimateTime formula maker
-const estimatedTime = function(number) {
+const estimatedTime = function (number) {
   let orderTime = 0;
   if (number.length > 0 && number.length < 2) {
     orderTime = 15;
@@ -163,14 +163,39 @@ const estimatedTime = function(number) {
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
-  twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be shortly`)
+  // const util = require('util');
+  // const setTimeoutPromise = util.promisify(setTimeout);
+
+  twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be given shortly`)
 
   // twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be ${estimatedTime}`)
 
-  res.writeHead(200, {'Content-Type': 'text/xml'});
+  const reply = function () {
+    // const twiml = new MessagingResponse();
+    // twiml.message(`Your order has been completed. Please come to the sushi restaurant for pick up`)
+    // console.log("test text")
+    client.messages
+      .create({
+        body: 'Your order has been completed. Please come to the sushi restaurant for pick up',
+        from: '16042601034',
+        to: process.env.WILLIAM_PHONE_NUMBER
+        //to: process.env.FELIPE_PHONE_NUMBER
+      })
+  }
+
+  // setTimeoutPromise(40, 'foobar').then((value) => {
+  // value === 'foobar' (passing values is optional)
+  // This is executed after about 40 milliseconds.
+
+
+  // setTimeout(10000, `Your order has been completed. Please come to the sushi restaurant for pick up`).then((twiml.message(value)) => {
+  // });
+
+  setTimeout(reply, 5000);
+
+  res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });
-
 
 
 /******* Listens for Port *******/
