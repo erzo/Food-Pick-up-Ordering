@@ -5,3 +5,8 @@ body {
 body h1 {
   color: #244751;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+}

@@ -97,10 +97,10 @@ app.get("/order", (req, res) => {
 app.post("/order", (req, res) => {
   console.log(req.body);
   // insert individual object keys into database
-  //res.render('confirmation', {orderdata: req.body});
+  res.render('confirmation', {orderdata: req.body});
   // this should store the req.body in a local object that can be referenced by get(confirmation)
 
-  res.redirect('confirmation');
+  // res.redirect('confirmation');
   //save req.body object to database for twilio so we have the phone number (orderdata.inputPhone)
 });
 
