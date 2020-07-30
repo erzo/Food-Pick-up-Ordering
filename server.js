@@ -90,7 +90,7 @@ app.get("/menu", (req, res) => {
 
 app.post("/menu", (req, res) => {
   console.log(req.body);
-//   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
+  //   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
   res.render("menu");
 });
 
@@ -114,8 +114,8 @@ app.post("/order", (req, res) => {
       //to: process.env.FELIPE_PHONE_NUMBER
     })
     .then(message => console.log(message.sid))
-  .then(() => res.redirect('confirmation') , { orderdata: req.body });
-    // .then(() => res.render('confirmation', { orderdata: req.body }));
+    .then(() => res.redirect('confirmation'), { orderdata: req.body });
+  // .then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
   // res.render('confirmation', { orderdata: req.body });
   // this should store the req.body in a local object that can be referenced by get(confirmation)
@@ -203,11 +203,10 @@ app.post("/deleteorder", (req, res) => {
 
   console.log("Success");
   console.log("reqbody", req.body);
-
-
-  var reqData =  JSON.stringify(req.body);
-
-        console.log("reqData :::: " + reqData);
+  console.log("reqbody", req.body.info);
+  var reqData = (req.body);
+// we now send the data.id which can represent the order.id and taking that we can delete from the order table the specific order
+  res.status(200).end();
 });
 
 /******* Listens for Port *******/

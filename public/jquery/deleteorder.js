@@ -2,16 +2,17 @@
 //used in order.ejs
 
 $(document).ready(function () {
-  $("#deletebutton1").on('click', function () {
+  $(".deletebutton").on('click', function () {
+    const parent = $(this).parents(".list-group-item");
     //const info = $(".test-order1").serialize();
-    const info = $(".test-order1").val();
+    const info = parent.data("id");
     $.ajax({
       url: "/deleteorder",
       type: "POST",
-      data: JSON.stringify(info)
+      data: { info }
     })
-    console.log("2", info);
-    $(".test-order1").remove();
+    console.log("deleteorder", info);
+    $(parent).remove();
   });
 });
 
@@ -34,22 +35,3 @@ $(document).ready(function () {
 //   }
 //   e.preventDefault();
 //   });
-
-$(document).ready(function () {
-  $("#deletebutton2").on('click', function () {
-    $(".test-order2").remove();
-  });
-});
-
-$(document).ready(function () {
-  $("#deletebutton3").on('click', function () {
-    $(".test-order3").remove();
-  });
-});
-
-$(document).ready(function () {
-  $("#deletebutton4").on('click', function () {
-    $(".test-order4").remove();
-  });
-});
-
