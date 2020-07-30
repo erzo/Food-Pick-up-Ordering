@@ -114,8 +114,8 @@ app.post("/order", (req, res) => {
       //to: process.env.FELIPE_PHONE_NUMBER
     })
     .then(message => console.log(message.sid))
-    .then(() => res.redirect('confirmation'));
-  //.then(() => res.render('confirmation', { orderdata: req.body }));
+  .then(() => res.redirect('confirmation') , { orderdata: req.body });
+    // .then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
   // res.render('confirmation', { orderdata: req.body });
   // this should store the req.body in a local object that can be referenced by get(confirmation)
