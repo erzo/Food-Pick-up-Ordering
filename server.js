@@ -108,13 +108,13 @@ app.post("/order", (req, res) => {
   console.log(req.body);
   client.messages
     .create({
-      body: 'Your sushi order have been received by Super Kami Restaurant. Please reply "YES" to this number to get your estimated pick up time.',
+      body: 'Your sushi order have been received by Super Kami Sushi. Please reply "YES" to this number to get your estimated pick up time.',
       from: '16042601034',
       to: process.env.WILLIAM_PHONE_NUMBER
       //to: process.env.FELIPE_PHONE_NUMBER
     })
     .then(message => console.log(message.sid))
-    .then(() => res.redirect('confirmation'), { orderdata: req.body });
+  .then(() => res.redirect('confirmation'), { orderdata: req.body });
   // .then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
   // res.render('confirmation', { orderdata: req.body });
@@ -145,17 +145,12 @@ app.post("/confirmation", (req, res) => {
 // //twilio set up - jul 28 william estimateTime formula maker
 const estimatedTime = function (number) {
   let orderTime = 0;
-  if (number.length > 0 && number.length < 2) {
-    orderTime = 15;
-  } else if (number.length >= 2 && number.length < 4) {
-    orderTime = 20;
-  } else if (number.length >= 4 && number.length < 6) {
-    orderTime = 25;
-  } else {
-    orderTime = "over thirty";
+  if (number.length > 0 && number.length < 3) {
+    orderTime = "20 minutes";
+  } else if (number.length >= 3) {
+    orderTime = "30-40 minutes";
   }
-
-  return orderTime + "minutes";
+  return orderTime;
 }
 
 
@@ -174,11 +169,11 @@ app.post('/sms', (req, res) => {
 
   const reply = function () {
     // const twiml = new MessagingResponse();
-    // twiml.message(`Your order has been completed. Please come to the Super Kami Restaurant for pick up`)
+    // twiml.message(`Your order has been completed. Please come to the Super Kami Sushi for pick up`)
     // console.log("test text")
     client.messages
       .create({
-        body: 'Your order has been completed. Please come to Super Kami Restaurant for pick up!',
+        body: 'Your order has been completed. Please come to Super Kami Sushi for pick up!',
         from: '16042601034',
         to: process.env.WILLIAM_PHONE_NUMBER
         //to: process.env.FELIPE_PHONE_NUMBER
@@ -190,7 +185,7 @@ app.post('/sms', (req, res) => {
   // This is executed after about 40 milliseconds.
 
 
-  // setTimeout(10000, `Your order has been completed. Please come to the Super Kami Restaurant for pick up`).then((twiml.message(value)) => {
+  // setTimeout(10000, `Your order has been completed. Please come to the Super Kami Sushi for pick up`).then((twiml.message(value)) => {
   // });
 
   setTimeout(reply, 5000);
