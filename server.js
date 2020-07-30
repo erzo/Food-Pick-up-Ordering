@@ -88,11 +88,11 @@ app.get("/menu", (req, res) => {
   res.render("menu");
 });
 
-// app.post("/menu", (req, res) => {
-//   console.log(req.body);
+app.post("/menu", (req, res) => {
+  console.log(req.body);
 //   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
-//   res.render("menu");
-// });
+  res.render("menu");
+});
 
 
 app.get("/proceedtocheckout", (req, res) => {
@@ -199,6 +199,16 @@ app.post('/sms', (req, res) => {
   res.end(twiml.toString());
 });
 
+app.post("/deleteorder", (req, res) => {
+
+  console.log("Success");
+  console.log("reqbody", req.body);
+
+
+  var reqData =  JSON.stringify(req.body);
+
+        console.log("reqData :::: " + reqData);
+});
 
 /******* Listens for Port *******/
 app.listen(PORT, () => {

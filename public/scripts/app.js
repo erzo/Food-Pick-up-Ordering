@@ -22,7 +22,7 @@ $(() => {
       $(`
       <div class="col-lg-4 col-sm-4">
           <div class="card" style="">
-          <form id="order-form" method="POST" action="/menu">
+          <form id="order-form">
             <img class="card-img-top" src="${data.food_item_photo}">
             <div class="card-body">
               <h5 class="card-title">${data.name}</h5>
