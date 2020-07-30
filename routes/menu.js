@@ -11,7 +11,7 @@ module.exports = (db) => {
     // console.log("db: ", db);
     db.query(`SELECT * FROM menu_items;`)
       .then(data => {
-        console.log("data", data);
+        // console.log("data", data);
         const menu = data.rows;
         res.json({ menu });
       })
@@ -27,23 +27,41 @@ module.exports = (db) => {
     console.log("item posted");
     const menuItems = req.body;
     console.log(menuItems);
-    db.query(`INSERT INTO orders () VALUES () RETURNING *`)
+    db.query(`INSERT INTO orders DEFAULT VALUES RETURNING *;`)
       .then(data => {
         const order = data.rows[0] // <--
         console.log(order);
-        // for(const item of menuItems) {
+
+        for(const item of menuItems.menuItems) {
           console.log(item);
-          db.query(`INSERT INTO pickup_orders (order_id, menu_item_id, quantity, total_price) VALUES ($1, $2, $3, $4);`, [order.id, item.menu_item_id, item.quantity, (item.price * item.quantity) ])
-          // .then(data => {
+          console.log(item.menuItem);
+          // db.query(`INSERT INTO pickup_orders (order_id, menu_item_id, quantity, total_price) VALUES ($1, $2, $3, $4);`, [order.id, item.menu_item_id, item.quantity, (item.price * item.quantity) ])
+          db.query(`INSERT INTO pickup_orders (order_id, menu_item_id, quantity, total_price) VALUES ($1, $2, 1, 1);`, [order.id, item.menuItem])
+          .then(data => {
+            console.log("done", data);
           //   const menuItems = data.rows
-          //   res.json({ menuItems })
+          //   res.json({ menuItems
+              })
           .catch(err => {
-            res
-            .status(500)
-            .json({ error: err.message });
+            // res
+            // .status(500)
+            // .json({ error: err.message });
+            console.log("error: ", err);
           });
-        // }
+        }
       })
+      .then(data => {
+        res
+        .status(200)
+        res.json ({message: "success"})
+      //   const menuItems = data.rows
+      //   res.json({ menuItems
+          })
+      .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message });
+      });
     });
   return router;
 };
