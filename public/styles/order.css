@@ -3,6 +3,15 @@ footer {
 }
 
 .list-group {
-  margin-top: 30px;
   margin-bottom: 30px;
+}
+
+.orderform {
+  height: 420px;
+  overflow: scroll;
+  margin-top: 30px;
+}
+
+.priceform {
+  margin-top: 29px;
 }
