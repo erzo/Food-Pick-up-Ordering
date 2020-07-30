@@ -108,7 +108,7 @@ app.post("/order", (req, res) => {
   console.log(req.body);
   client.messages
     .create({
-      body: 'Your sushi order have been received by Sushi Restaurant. Please reply "YES" to this number to get your estimated pick up time.',
+      body: 'Your sushi order have been received by Super Kami Restaurant. Please reply "YES" to this number to get your estimated pick up time.',
       from: '16042601034',
       to: process.env.WILLIAM_PHONE_NUMBER
       //to: process.env.FELIPE_PHONE_NUMBER
@@ -125,14 +125,14 @@ app.post("/order", (req, res) => {
 });
 
 
+//don't think post / get '/placeyourorder' is used anymore
+// app.post("/placeyourorder", (req, res) => {
+//   res.redirect('confirmation');
+// });
 
-app.post("/placeyourorder", (req, res) => {
-  res.redirect('confirmation');
-});
-
-app.get("/placeyourorder", (req, res) => {
-  res.redirect('confirmation');
-});
+// app.get("/placeyourorder", (req, res) => {
+//   res.redirect('confirmation');
+// });
 
 app.get("/confirmation", (req, res) => {
   res.render("confirmation", { orderdata: req.body });
@@ -159,6 +159,8 @@ const estimatedTime = function (number) {
 }
 
 
+//for this to run ngrok has to be up WHILE the server is up as well
+//ngrok http 8080 and then npm start will allow the text to work
 // //twilio set up - jul 28 william inbound sms
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
@@ -172,11 +174,11 @@ app.post('/sms', (req, res) => {
 
   const reply = function () {
     // const twiml = new MessagingResponse();
-    // twiml.message(`Your order has been completed. Please come to the sushi restaurant for pick up`)
+    // twiml.message(`Your order has been completed. Please come to the Super Kami Restaurant for pick up`)
     // console.log("test text")
     client.messages
       .create({
-        body: 'Your order has been completed. Please come to Sushi Restaurant for pick up!',
+        body: 'Your order has been completed. Please come to Super Kami Restaurant for pick up!',
         from: '16042601034',
         to: process.env.WILLIAM_PHONE_NUMBER
         //to: process.env.FELIPE_PHONE_NUMBER
@@ -188,7 +190,7 @@ app.post('/sms', (req, res) => {
   // This is executed after about 40 milliseconds.
 
 
-  // setTimeout(10000, `Your order has been completed. Please come to the sushi restaurant for pick up`).then((twiml.message(value)) => {
+  // setTimeout(10000, `Your order has been completed. Please come to the Super Kami Restaurant for pick up`).then((twiml.message(value)) => {
   // });
 
   setTimeout(reply, 5000);
