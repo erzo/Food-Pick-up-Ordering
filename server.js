@@ -136,7 +136,7 @@ app.post("/order", (req, res) => {
       //to: process.env.FELIPE_PHONE_NUMBER
     })
     .then(message => console.log(message.sid))
-  .then(() => res.redirect('confirmation'), { orderdata: req.body });
+    .then(() => res.redirect('confirmation'), { orderdata: req.body });
   // .then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
   // res.render('confirmation', { orderdata: req.body });
@@ -166,6 +166,10 @@ app.post("/confirmation", (req, res) => {
 
 // //twilio set up - jul 28 william estimateTime formula maker
 const estimatedTime = function (number) {
+  db.query(`
+  SELECT COUNT(quantity)
+  FROM pickup_orders
+  WHERE order_id = ${orders};`)
   let orderTime = 0;
   if (number.length > 0 && number.length < 3) {
     orderTime = "20 minutes";
@@ -175,6 +179,7 @@ const estimatedTime = function (number) {
   return orderTime;
 }
 
+console.log(estimatedTime);
 
 //for this to run ngrok has to be up WHILE the server is up as well
 //ngrok http 8080 and then npm start will allow the text to work
@@ -218,11 +223,25 @@ app.post('/sms', (req, res) => {
 
 app.post("/deleteorder", (req, res) => {
 
-  console.log("Success");
-  console.log("reqbody", req.body);
-  console.log("reqbody", req.body.info);
-  var reqData = (req.body);
-// we now send the data.id which can represent the order.id and taking that we can delete from the order table the specific order
+  // console.log("Success");
+  // console.log("reqbody", req.body);
+  // console.log("reqbodyorderId", req.body.orderId);
+  var reqData = (req.body.orderId);
+  console.log(reqData);
+  db.query(`DELETE FROM pickup_orders
+  WHERE menu_item_id = ${reqData}
+  RETURNING *;`)
+    .then(data => {
+      console.log("done", data);
+    })
+    .catch(err => {
+      // res
+      // .status(500)
+      // .json({ error: err.message });
+      console.log("error: ", err);
+    });
+
+  // we now send the data.id which can represent the order.id and taking that we can delete from the order table the specific order
   res.status(200).end();
 });
 

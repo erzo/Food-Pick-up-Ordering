@@ -1,5 +1,5 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 
 /******* Place Order Page *******/
@@ -44,11 +44,17 @@ module.exports = (db) => {
                   // console.log(data.rows[0].price);
                   total += Number(data.rows[0].price);
                 })
+
               }
               console.log("total: ", total);
               res.json({ menuItems: menuItemsArray.flat(1), total_price: total });
               // console.log("array of menu items second thing: ", menuItemsArray.flat(1));
           })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
       })
       .catch(err => {
         res
