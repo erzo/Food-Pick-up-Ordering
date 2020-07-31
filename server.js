@@ -136,8 +136,8 @@ app.post("/order", (req, res) => {
       //to: process.env.FELIPE_PHONE_NUMBER
     })
     .then(message => console.log(message.sid))
-    .then(() => res.redirect('confirmation'), { orderdata: req.body });
-  // .then(() => res.render('confirmation', { orderdata: req.body }));
+    //.then(() => res.redirect('confirmation'), { orderdata: req.body });
+    .then(() => res.render('confirmation', { orderdata: req.body }));
   // insert individual object keys into database
   // res.render('confirmation', { orderdata: req.body });
   // this should store the req.body in a local object that can be referenced by get(confirmation)
@@ -226,7 +226,7 @@ app.post("/deleteorder", (req, res) => {
   // console.log("Success");
   // console.log("reqbody", req.body);
   // console.log("reqbodyorderId", req.body.orderId);
-  var reqData = (req.body.orderId);
+  var reqData = (req.body.info);
   console.log(reqData);
   db.query(`DELETE FROM pickup_orders
   WHERE menu_item_id = ${reqData}

@@ -2,17 +2,16 @@
 //used in order.ejs
 
 $(document).ready(function () {
-  $(".deletebutton").on('click', function () {
+  $(".list-group").on('click', ".deletebutton", function () {
     const parent = $(this).parents(".list-group-item");
     //const info = $(".test-order1").serialize();
-    const orderId = parent.data("id");
-    //line 8 "parent.data("id"), should be the dynamic id from each order item, 1 through 9
+    const info = parent.data("id");
     $.ajax({
       url: "/deleteorder",
       type: "POST",
-      data: { orderId }
+      data: { info }
     })
-    console.log("deleteorder", orderId);
+    console.log("deleteorder", info);
     $(parent).remove();
   });
 });

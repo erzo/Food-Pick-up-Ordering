@@ -111,12 +111,25 @@ $(() => {
     return $(newRowItem);
   };
 
+
+  const totalPrice = function (data) {
+
+    const newTotalPrice =
+      $(`
+      <div class="leftfootercounter">$${data}</div>
+      `)
+    return $(newTotalPrice)
+  }
+
+
   $.ajax({
     method: "GET",
     url: "/api/order"
   }).done((res) => {
     console.log("here here", res);
       console.log("Felipe", res.total_price);
+      $('#ordertotal').after(totalPrice(res.total_price));
+
       // console.log("we are on order page", res);
           for(let i = 0; i < res.menuItems.length; i++) {
             // console.log("name", res[i]);
