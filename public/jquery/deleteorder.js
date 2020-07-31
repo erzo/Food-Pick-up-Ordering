@@ -5,13 +5,13 @@ $(document).ready(function () {
   $(".deletebutton").on('click', function () {
     const parent = $(this).parents(".list-group-item");
     //const info = $(".test-order1").serialize();
-    const info = parent.data("id");
+    const orderId = parent.data("id");
     $.ajax({
       url: "/deleteorder",
       type: "POST",
-      data: { info }
+      data: { orderId }
     })
-    console.log("deleteorder", info);
+    console.log("deleteorder", orderId);
     $(parent).remove();
   });
 });

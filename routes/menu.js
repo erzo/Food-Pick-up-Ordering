@@ -24,17 +24,17 @@ module.exports = (db) => {
 
   //post request on order button click
   router.post("/", (req, res) => {
-    console.log("item posted");
+    //console.log("item posted");
     const menuItems = req.body;
-    console.log(menuItems);
+    //console.log(menuItems);
     db.query(`INSERT INTO orders DEFAULT VALUES RETURNING *;`)
       .then(data => {
         const order = data.rows[0] // <--
-        console.log(order);
+        //console.log(order);
 
         for(const item of menuItems.menuItems) {
-          console.log(item);
-          console.log(item.menuItem);
+          console.log("item", item);
+          console.log("item.menuItem", item.menuItem);
           // db.query(`INSERT INTO pickup_orders (order_id, menu_item_id, quantity, total_price) VALUES ($1, $2, $3, $4);`, [order.id, item.menu_item_id, item.quantity, (item.price * item.quantity) ])
           db.query(`INSERT INTO pickup_orders (order_id, menu_item_id, quantity, total_price) VALUES ($1, $2, 1, 1);`, [order.id, item.menuItem])
           .then(data => {
