@@ -6,6 +6,7 @@ $(document).ready(function () {
     const parent = $(this).parents(".list-group-item");
     //const info = $(".test-order1").serialize();
     const orderId = parent.data("id");
+    //line 8 "parent.data("id"), should be the dynamic id from each order item, 1 through 9
     $.ajax({
       url: "/deleteorder",
       type: "POST",
