@@ -30,8 +30,6 @@ $(() => {
     method: "GET",
     url: "/api/menu"
   }).done((res) => {
-      // console.log("Felipe");
-      console.log("we are here", res.menu);
           //for(const item in menu)
           for(let i = 0; i < res.menu.length; i++) {
             if(i < 3) {
@@ -78,7 +76,7 @@ $(() => {
     // dataType: 'json',
       data: { menuItems: arrayOfMenuItems }
   }).done((data) => {
-    console.log(data);
+    // console.log(data);
     window.location.href="/proceedtocheckout";
     })
     .catch(error => {
@@ -91,13 +89,13 @@ $(() => {
   ///------------------- CREATES ROW ITEMS IN ORDER PAGE --------------///
 
   const createRowItem = function(data) {
-    console.log(data);
+    // console.log(data);
     const newRowItem =
       $(`
       <form data-id=${data.id} class="test-order1 list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">${data.name}</h5>
-            <small>${data.price}</small>
+            <small>$${data.price}</small>
         </div>
 
         <p class="mb-1">${data.description}</p>
@@ -117,12 +115,12 @@ $(() => {
     method: "GET",
     url: "/api/order"
   }).done((res) => {
-    console.log(res);
-      // console.log("Felipe");
+    console.log("here here", res);
+      console.log("Felipe", res.total_price);
       // console.log("we are on order page", res);
-          for(let i = 0; i < res.length; i++) {
+          for(let i = 0; i < res.menuItems.length; i++) {
             // console.log("name", res[i]);
-            const rowItem = createRowItem(res[i]);
+            const rowItem = createRowItem(res.menuItems[i]);
             $('#row-container').after(rowItem);
           }
     })
