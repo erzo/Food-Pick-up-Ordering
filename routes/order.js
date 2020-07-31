@@ -1,5 +1,5 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 
 /******* Place Order Page *******/
@@ -41,11 +41,17 @@ module.exports = (db) => {
                 .then(data => {
                   menuItemsArray.push(data.rows);
                 })
-              }
-              //console.log("array of menu items second thing: ", menuItemsArray.flat(1));
-              res.json(menuItemsArray.flat(1))
+            }
+            //console.log("array of menu items second thing: ", menuItemsArray.flat(1));
+            // res.json(menuItemsArray.flat(1))
+            res.json(menuItemsArray)
 
           })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
       })
       .catch(err => {
         res

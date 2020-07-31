@@ -166,6 +166,10 @@ app.post("/confirmation", (req, res) => {
 
 // //twilio set up - jul 28 william estimateTime formula maker
 const estimatedTime = function (number) {
+  db.query(`
+  SELECT COUNT(quantity)
+  FROM pickup_orders
+  WHERE order_id = ${orders};`)
   let orderTime = 0;
   if (number.length > 0 && number.length < 3) {
     orderTime = "20 minutes";
@@ -175,6 +179,7 @@ const estimatedTime = function (number) {
   return orderTime;
 }
 
+console.log(estimatedTime);
 
 //for this to run ngrok has to be up WHILE the server is up as well
 //ngrok http 8080 and then npm start will allow the text to work
