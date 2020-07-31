@@ -31,6 +31,7 @@ module.exports = (db) => {
           .then(data => {
             // console.log(data.rows);
             const menuItems = data.rows.menu_item_id;
+            let total = 0;
             for (const menuItems of data.rows) {
               console.log("menu items first thing: ", menuItems.menu_item_id);
               // console.log(data.rows);
@@ -43,8 +44,7 @@ module.exports = (db) => {
                 })
               }
               //console.log("array of menu items second thing: ", menuItemsArray.flat(1));
-              res.json(menuItemsArray.flat(1))
-
+              res.json(menuItemsArray.flat(1) )  // total: "",
           })
       })
       .catch(err => {
@@ -54,29 +54,31 @@ module.exports = (db) => {
       });
   });
 
-  // router.post("/order", (req, res) => {     <---- July29/Felipe
+  router.post("/", (req, res) => {     //<---- July29/Felipe
 
-  //   const name = req.body.name;
-  //   const email = req.body.email;
-  //   const password = req.body.psw;
-  //   const city = req.body.city;
-  //   const address = req.body.address;
-  //   const province = req.body.country
-  //   const postalCode = req.body.pin;
-  //   const additionalNotes = req.body.mobile;
+    console.log(req.body);
+    const firstName = req.body.inputFirstName;
+    // const lastName = req.body.name;
+    // const email = req.body.email;
+    // const phone = req.body.phone;
+    // const additionalNotes = req.body.mobile;
 
-  //   db.query(`INSERT INTO users (name, email, phone_number, address, city, province, postal_code)VALUES", (name , email, address, city, country , password)`)
-  //   .then(data => {
-  //     const menuItems = data.rows
-  //     res.json({ menuItems })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  //     res.redirect("/confirmation");
-  //   })
-  // });
+    console.log(firstName);
+
+    const userInfo = { firstName }
+    // console.log(userInfo);
+    // db.query(`INSERT INTO users (name, email, phone_number, address, city, province, postal_code)VALUES", (name , email, address, city, country , password)`)
+    // .then(data => {
+    //   const menuItems = data.rows
+    //   res.json({ menuItems })
+    //   .catch(err => {
+    //     res
+    //       .status(500)
+    //       .json({ error: err.message });
+    //   });
+    //   res.redirect("/confirmation");
+    // })
+  });
 
   return router;
 };

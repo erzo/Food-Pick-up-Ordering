@@ -185,7 +185,7 @@ app.post('/sms', (req, res) => {
   // const util = require('util');
   // const setTimeoutPromise = util.promisify(setTimeout);
 
-  twiml.message(`The estimated pick up time for your order is (MINUTES). We will message you again once your order is ready for pick up.`)
+  twiml.message(`The estimated pick up time for your order is 20 minutes. We will message you again once your order is ready for pick up.`)
 
   // twiml.message(`Thank you for ordering with us. The estimated pick up time for your order will be ${estimatedTime}`)
 
@@ -216,13 +216,35 @@ app.post('/sms', (req, res) => {
   res.end(twiml.toString());
 });
 
-app.post("/deleteorder", (req, res) => {
+// app.post("/deleteorder", (req, res) => {
 
-  console.log("Success");
-  console.log("reqbody", req.body);
-  console.log("reqbody", req.body.info);
-  var reqData = (req.body);
-// we now send the data.id which can represent the order.id and taking that we can delete from the order table the specific order
+//   console.log("Success");
+//   console.log("reqbody", req.body);
+//   console.log("reqbody", req.body.info);
+//   var reqData = (req.body);
+// // we now send the data.id which can represent the order.id and taking that we can delete from the order table the specific order
+//   res.status(200).end();
+// });
+
+app.post("/deleteorder", (req, res) => {
+  // console.log("Success");
+  // console.log("reqbody", req.body);
+  // console.log("reqbodyorderId", req.body.orderId);
+  var reqData = (req.body.info);
+  console.log(reqData);
+  db.query(`DELETE FROM pickup_orders
+  WHERE menu_item_id = ${reqData}
+  RETURNING *;`)
+    .then(data => {
+      console.log("done", data);
+    })
+    .catch(err => {
+      // res
+      // .status(500)
+      // .json({ error: err.message });
+      console.log("error: ", err);
+    });
+  // we now send the data.id which can represent the order.id and taking that we can delete from the order table the specific order
   res.status(200).end();
 });
 

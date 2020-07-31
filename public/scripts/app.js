@@ -97,7 +97,7 @@ $(() => {
       <form data-id=${data.id} class="test-order1 list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">${data.name}</h5>
-            <small>${data.price}</small>
+            <small>$${data.price}</small>
         </div>
 
         <p class="mb-1">${data.description}</p>

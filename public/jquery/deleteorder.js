@@ -2,7 +2,7 @@
 //used in order.ejs
 
 $(document).ready(function () {
-  $(".deletebutton").on('click', function () {
+  $(".list-group").on('click', ".deletebutton", function () {
     const parent = $(this).parents(".list-group-item");
     //const info = $(".test-order1").serialize();
     const info = parent.data("id");
