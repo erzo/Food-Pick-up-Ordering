@@ -7,7 +7,7 @@ module.exports = (db) => {
 
   //get request on page load
   router.get("/", (req, res) => {
-    console.log("fetching menu")
+    // console.log("fetching menu")
     // console.log("db: ", db);
     db.query(`SELECT * FROM menu_items;`)
       .then(data => {
