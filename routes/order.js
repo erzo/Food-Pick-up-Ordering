@@ -5,8 +5,53 @@ const router  = express.Router();
 /******* Place Order Page *******/
 
 module.exports = (db) => {
-  router.get("/order", (req, res) => {
-    res.render("order");
+  // router.get("/order", (req, res) => {
+  //   res.render("order");
+  // });
+
+
+  const menuItemsArray = [];
+
+
+  //get request on page load
+  router.get("/", (req, res) => {
+    console.log("fetching order")
+    // console.log("db: ", db);
+    db.query(`
+    SELECT *
+    FROM pickup_orders
+    ORDER BY order_id DESC;`)
+      .then(data => {
+        // console.log("get order: ", data.rows[0].order_id);
+        const orders = data.rows[0].order_id;
+        db.query(`
+          SELECT *
+          FROM pickup_orders
+          WHERE order_id = ${orders};`)
+          .then(data => {
+            // console.log(data.rows);
+            const menuItems = data.rows.menu_item_id;
+            for (const menuItems of data.rows) {
+              console.log("menu items first thing: ", menuItems.menu_item_id);
+              // console.log(data.rows);
+              db.query(`
+                SELECT *
+                FROM menu_items
+                WHERE id = ${menuItems.menu_item_id};`)
+                .then(data => {
+                  menuItemsArray.push(data.rows);
+                })
+              }
+              //console.log("array of menu items second thing: ", menuItemsArray.flat(1));
+              res.json(menuItemsArray.flat(1))
+
+          })
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
   // router.post("/order", (req, res) => {     <---- July29/Felipe

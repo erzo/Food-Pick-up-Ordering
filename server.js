@@ -55,6 +55,7 @@ const orderRoutes = require("./routes/order");          // <---------------- Fel
 
 app.use("/api/users", usersRoutes(db));
 app.use("/api/menu", menuRoutes(db));
+app.use("/api/order", orderRoutes(db));
 // app.use("/api/widgets", widgetsRoutes(db));
 ///app.use("/confirmation", confirmationRoutes(db));    // <---------------- Felipe/July25
 ///app.use("/order", orderRoutes(db));          // <---------------- Felipe/July25
@@ -89,7 +90,7 @@ app.get("/menu", (req, res) => {
 });
 
 app.post("/menu", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   //   // this should add the item selected to order total bottom and a local object that holds the order for use later in order.ejs when the customer confirms the order (right side)
   res.render("menu");
 });
@@ -100,9 +101,30 @@ app.get("/proceedtocheckout", (req, res) => {
 });
 
 app.get("/order", (req, res) => {
-  // you enter the order form information before you click submit order to confirm your order
   res.render("order");
 });
+
+
+/**************** NEW ITEM  **************************/
+
+// //get request on page load
+// app.get("/order", (req, res) => {
+//   console.log("fetching order")
+//   // console.log("db: ", db);
+//   db.query(`SELECT * FROM pickup_orders;`)
+//     .then(data => {
+//       console.log("data", data);
+//       const orders = data.rows;
+//       // res.json({ orders });
+//     })
+//     .catch(err => {
+//       res
+//         .status(500)
+//         .json({ error: err.message });
+//     });
+// });
+
+/**************** NEW ITEM  **************************/
 
 app.post("/order", (req, res) => {
   console.log(req.body);

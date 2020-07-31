@@ -7,7 +7,7 @@ module.exports = (db) => {
 
   //get request on page load
   router.get("/", (req, res) => {
-    console.log("fetching menu")
+    // console.log("fetching menu")
     // console.log("db: ", db);
     db.query(`SELECT * FROM menu_items;`)
       .then(data => {
@@ -30,7 +30,7 @@ module.exports = (db) => {
     db.query(`INSERT INTO orders DEFAULT VALUES RETURNING *;`)
       .then(data => {
         const order = data.rows[0] // <--
-        console.log(order);
+        // console.log(order);
 
         for(const item of menuItems.menuItems) {
           console.log(item);
